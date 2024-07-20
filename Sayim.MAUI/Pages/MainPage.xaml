@@ -1,0 +1,102 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:dxg="clr-namespace:DevExpress.Maui.DataGrid;assembly=DevExpress.Maui.DataGrid"
+             mc:Ignorable="d"
+             x:Class="Sayim.MAUI.Pages.MainPage">
+
+    <Grid Padding="10" RowSpacing="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <!-- Input Fields -->
+        <StackLayout Grid.Row="0" Orientation="Horizontal" Spacing="5">
+            <Label Text="Sayım Yapan :" VerticalTextAlignment="Center" />
+            <Entry x:Name="personEntry" HorizontalOptions="FillAndExpand" IsReadOnly="True"/>
+            <Button Text="..." BackgroundColor="Green" TextColor="White" CornerRadius="10" Clicked="OnPersonelButtonClicked" />
+        </StackLayout>
+
+        <StackLayout Grid.Row="1" Orientation="Horizontal" Spacing="5">
+            <Label Text="Ambar No :" VerticalTextAlignment="Center" />
+            <Entry x:Name="warehouseNoEntry" HorizontalOptions="FillAndExpand" IsReadOnly="True"/>
+            <Button Text="..." BackgroundColor="Green" TextColor="White" CornerRadius="10" Clicked="OnAmbarNoButtonClicked" />
+        </StackLayout>
+
+        <StackLayout Grid.Row="2" Orientation="Horizontal" Spacing="5">
+            <Label Text="Ambar Adres :" VerticalTextAlignment="Center" />
+            <Entry x:Name="warehouseAddressEntry" HorizontalOptions="FillAndExpand" IsReadOnly="True"/>
+            <Button Text="..." BackgroundColor="Green" TextColor="White" CornerRadius="10" Clicked="OnAmbarAdresButtonClicked" />
+        </StackLayout>
+
+        <!-- Radio Buttons -->
+        <StackLayout Grid.Row="3" Orientation="Horizontal" Spacing="10">
+            <RadioButton x:Name="rdbTopNo" Content="TopNo" GroupName="Options" />
+            <RadioButton x:Name="rdbSeriNo" Content="SeriNo" GroupName="Options" />
+            <RadioButton x:Name="rdbRefakatKartNo" Content="R.Kart No" GroupName="Options" />
+        </StackLayout>
+
+
+        <!-- Entry and Counter -->
+        <StackLayout Grid.Row="4" Orientation="Horizontal" Spacing="10">
+            <Entry x:Name="counterEntry" HorizontalOptions="FillAndExpand" Completed="OnCounterEntryCompleted"/>
+            <Label x:Name="counterLabel" Text="0" TextColor="Red" VerticalTextAlignment="Center" />
+        </StackLayout>
+
+        <!-- DataGrid -->
+        <ListView x:Name="listView" Grid.Row="5" Grid.ColumnSpan="2" SelectionMode="Single">
+            <ListView.Header>
+                <Grid Padding="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <Label Text="Sıra" FontAttributes="Bold" Grid.Column="0" />
+                    <Label Text="SeriNo" FontAttributes="Bold" Grid.Column="1" />
+                    <Label Text="Miktar" FontAttributes="Bold" Grid.Column="2" />
+                    <Label Text="İşlem" FontAttributes="Bold" Grid.Column="3" />
+                </Grid>
+            </ListView.Header>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid Padding="5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <Label Text="{Binding Sira}" Grid.Column="0" />
+                            <Label Text="{Binding SeriNo}" Grid.Column="1" />
+                            <Label Text="{Binding Miktar}" Grid.Column="2" />
+                            <Button Text="Sil"
+                            Grid.Column="3"
+                            VerticalOptions="Center"
+                            HorizontalOptions="End"
+                            WidthRequest="50"
+                            HeightRequest="40"
+                            Clicked="OnDeleteButtonClicked"
+                            CommandParameter="{Binding .}" />
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+        <!-- Buttons -->
+        <Grid Grid.Row="6" ColumnDefinitions="Auto,Auto,*,Auto" ColumnSpacing="20">
+            <Button Text="Kaydet" BackgroundColor="Green" TextColor="White" CornerRadius="10" Clicked="OnKaydetButtonClicked" Grid.Column="0" />
+            <Button Text="Çıkış" BackgroundColor="DarkRed" TextColor="White" CornerRadius="10" Clicked="OnCikisButtonClicked" Grid.Column="3" />
+        </Grid>
+    </Grid>
+</ContentPage>

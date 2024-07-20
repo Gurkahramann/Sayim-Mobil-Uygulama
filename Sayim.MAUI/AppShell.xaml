@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="Sayim.MAUI.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:dx="http://schemas.devexpress.com/maui"
+    xmlns:local="clr-namespace:Sayim.MAUI.Pages"
+    Shell.FlyoutBehavior="Disabled"
+    Title="Sayim.MAUI">
+    <Shell.Resources>
+        <ResourceDictionary>
+            <Style x:Key="CustomShellTitleStyle" TargetType="Label">
+                <Setter Property="TextColor" Value="Red" />
+                <Setter Property="FontSize" Value="20" />
+            </Style>
+        </ResourceDictionary>
+    </Shell.Resources>
+    <ShellContent ContentTemplate="{DataTemplate local:LoginPage}" Route="LoginPage"/>
+    <ShellContent ContentTemplate="{DataTemplate local:MainPage}" Route="MainPage"/>
+    <ShellContent ContentTemplate="{DataTemplate local:PersonelDetailsPage}" Route="PersonelDetailsPage"/>
+    <ShellContent ContentTemplate="{DataTemplate local:AmbarNoDetailsPage}" Route="AmbarNoDetailsPage"/>
+    <ShellContent ContentTemplate="{DataTemplate local:AmbarAdresDetailsPage}" Route="AmbarAdresDetailsPage"/>
+</Shell>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Sayim.MAUI.Pages.AmbarNoDetailsPage"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:dxg="clr-namespace:DevExpress.Maui.DataGrid;assembly=DevExpress.Maui.DataGrid"
+             Title="Ambar No Detay Sayfası">
+
+    <Grid Padding="10" RowSpacing="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <!-- Sütun Başlıkları -->
+        <Label Text="Ambar No" FontAttributes="Bold" Grid.Row="0" Grid.Column="0" />
+        <Label Text="Ambar Adı" FontAttributes="Bold" Grid.Row="0" Grid.Column="1" />
+
+        <!-- ListView -->
+        <ListView x:Name="listView" Grid.Row="1" Grid.ColumnSpan="2" SelectionMode="Single" ItemSelected="OnItemSelected">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid Padding="5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Label Text="{Binding AmbarNo}" Grid.Column="0" />
+                            <Label Text="{Binding AmbarAdi}" Grid.Column="1" />
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+        <!-- Buttons -->
+        <Grid Grid.Row="2" ColumnDefinitions="Auto,Auto,*,Auto" ColumnSpacing="20">
+            <Button Text="Seç" BackgroundColor="Green" TextColor="White" CornerRadius="10" Clicked="OnKaydetButtonClicked" Grid.Column="0" />
+        </Grid>
+    </Grid>
+</ContentPage>

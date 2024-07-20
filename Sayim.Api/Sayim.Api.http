@@ -1,0 +1,6 @@
+@Sayim.Api_HostAddress = http://localhost:5244
+
+GET {{Sayim.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

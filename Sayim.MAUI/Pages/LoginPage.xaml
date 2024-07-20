@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+            xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+            xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+            xmlns:dxg="clr-namespace:DevExpress.Maui.DataGrid;assembly=DevExpress.Maui.DataGrid"
+            x:Class="Sayim.MAUI.Pages.LoginPage"
+            Title="" >
+    <ContentPage.Content>
+        <StackLayout Padding="20" Spacing="20" VerticalOptions="Start">
+            <Label Text="Kullanıcı Kodu" FontAttributes="Bold" FontSize="Large" TextColor="Black" HorizontalOptions="Start" />
+            <Entry x:Name="KullaniciKoduEntry" Placeholder="" FontSize="Medium" />
+
+            <Label Text="Şifre" FontAttributes="Bold" FontSize="Large" TextColor="Black" HorizontalOptions="Start" />
+            <Entry x:Name="SifreEntry" Placeholder="" IsPassword="True" />
+            <StackLayout Orientation="Horizontal" VerticalOptions="Center">
+                <CheckBox x:Name="RememberMeCheckBox" />
+                <Label Text="Beni Hatırla" VerticalOptions="Center" />
+            </StackLayout>
+
+            <Grid ColumnDefinitions="*,*">
+                <Button Text="Çıkış Yap" BackgroundColor="Red" TextColor="White" Clicked="OnCikisYapClicked" Grid.Column="1" />
+                <Button Text="Giriş Yap" BackgroundColor="Green" TextColor="White" Clicked="OnGirisYapClicked" Grid.Column="0" />
+            </Grid>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
