@@ -96,6 +96,7 @@
         <!-- Buttons -->
         <Grid Grid.Row="6" ColumnDefinitions="Auto,Auto,*,Auto" ColumnSpacing="20">
             <Button Text="Kaydet" BackgroundColor="Green" TextColor="White" CornerRadius="10" Clicked="OnKaydetButtonClicked" Grid.Column="0" />
+            <Button Text="Klavyeyi Aç" BackgroundColor="Orange" TextColor="White" CornerRadius="10" Clicked="OnKlavyeButtonClicked" Grid.Column="1" />
             <Button Text="Çıkış" BackgroundColor="DarkRed" TextColor="White" CornerRadius="10" Clicked="OnCikisButtonClicked" Grid.Column="3" />
         </Grid>
     </Grid>

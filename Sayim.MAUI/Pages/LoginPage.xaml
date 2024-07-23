@@ -17,7 +17,7 @@
                 <CheckBox x:Name="RememberMeCheckBox" />
                 <Label Text="Beni Hatırla" VerticalOptions="Center" />
             </StackLayout>
-
+            
             <Grid ColumnDefinitions="*,*">
                 <Button Text="Çıkış Yap" BackgroundColor="Red" TextColor="White" Clicked="OnCikisYapClicked" Grid.Column="1" />
                 <Button Text="Giriş Yap" BackgroundColor="Green" TextColor="White" Clicked="OnGirisYapClicked" Grid.Column="0" />

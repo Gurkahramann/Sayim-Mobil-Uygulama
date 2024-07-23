@@ -3,6 +3,7 @@ using Sayim.ApiClient.Models.ApiModels;
 using System.Collections.ObjectModel;
 using Microsoft.Maui.Handlers;
 using Android.Views.InputMethods;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 namespace Sayim.MAUI.Pages
 {
     [QueryProperty(nameof(KullaniciKodu), "kullaniciKodu")]
@@ -12,6 +13,7 @@ namespace Sayim.MAUI.Pages
         private readonly ApiClientService _apiClientService;
         private ObservableCollection<Tablo> _seriNoList;
         private int _sira = 1;
+        private int _sayac = 0;
         private string _kullaniciKodu;
         public string KullaniciKodu
         {
@@ -36,6 +38,9 @@ namespace Sayim.MAUI.Pages
             _apiClientService = apiClientService;
             _seriNoList = new ObservableCollection<Tablo>();
             listView.ItemsSource = _seriNoList;
+            TapGestureRecognizer tapGesture = new TapGestureRecognizer();
+            tapGesture.Tapped += (s, e) => { HideKeyboard(); };
+            this.Content.GestureRecognizers.Add(tapGesture);
             MessagingCenter.Subscribe<AmbarNoDetailsPage, string>(this, "UpdateWarehouseNo", (sender, ambarNo) =>
             {
                 warehouseNoEntry.Text = ambarNo;
@@ -69,13 +74,28 @@ namespace Sayim.MAUI.Pages
             rdbSeriNo.CheckedChanged += OnRadioButtonCheckedChanged;
             rdbRefakatKartNo.CheckedChanged += OnRadioButtonCheckedChanged;
         }
+        private void HideKeyboard()
+        {
+#if ANDROID
+            var activity = Platform.CurrentActivity;
+            var inputMethodManager = (InputMethodManager)activity.GetSystemService(Android.Content.Context.InputMethodService);
+            var token = activity.CurrentFocus?.WindowToken;
+            if (token != null)
+            {
+                inputMethodManager.HideSoftInputFromWindow(token, HideSoftInputFlags.None);
+            }
+#endif
+        }
         private async void OnRadioButtonCheckedChanged(object sender, CheckedChangedEventArgs e)
         {
             if (rdbTopNo.IsChecked || rdbSeriNo.IsChecked || rdbRefakatKartNo.IsChecked)
             {
                 counterEntry.IsEnabled = true;
-                counterEntry.Focus();
-                    
+                if(_sayac==0)
+                {
+                    counterEntry.Focus();
+                    _sayac++;
+                }                    
             }
             else
             {
@@ -110,8 +130,6 @@ namespace Sayim.MAUI.Pages
             }
                 
         }
-
-
         private async void OnDeleteButtonClicked(object sender, EventArgs e)
         {
             var button = sender as Button;
@@ -136,8 +154,6 @@ namespace Sayim.MAUI.Pages
             _seriNoList.Remove(selectedItem);
             UpdateSira();
         }
-
-
 
         private async void OnKaydetButtonClicked(object sender, EventArgs e)
         {
@@ -263,7 +279,10 @@ namespace Sayim.MAUI.Pages
                 else if (rdbSeriNo.IsChecked) islemAdi = "Seri No";
                 else if (rdbRefakatKartNo.IsChecked) islemAdi = "Parti No";
 
-                if (!await KontrolAsync()) return;
+                if (!await KontrolAsync())
+                {
+                    return;
+                }
 
                 if (islemAdi == "TopNo")
                 {
@@ -313,7 +332,6 @@ namespace Sayim.MAUI.Pages
                 };
                 _seriNoList.Insert(0, newItem); // Insert the new item at the beginning of the list
                 counterEntry.Text = string.Empty;
-                counterEntry.Focus();
                 counterLabel.Text = _seriNoList.Count.ToString();
 
                 // Update the sequence numbers to reflect the new order
@@ -331,7 +349,6 @@ namespace Sayim.MAUI.Pages
 
             void SeriNoTemizle()
             {
-                counterEntry.Focus();
                 counterEntry.Text = string.Empty;
             }
 
@@ -422,6 +439,19 @@ namespace Sayim.MAUI.Pages
         private bool MukerrerKayitKontrol(string seriNo)
         {
             return _seriNoList.Any(item => item.SeriNo == seriNo);
+        }
+        private async void OnKlavyeButtonClicked(object sender, EventArgs e)
+        {
+            if(rdbRefakatKartNo.IsChecked || rdbSeriNo.IsChecked || rdbTopNo.IsChecked)
+            {
+                counterEntry.Focus();
+            }
+            else
+            {
+                Vibration.Vibrate(500);
+                await DisplayAlert("Uyarı", "Lütfen bir işlem seçin.", "OK");
+                return;
+            }
         }
     }
     public class Tablo
