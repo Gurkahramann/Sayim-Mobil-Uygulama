@@ -361,3 +361,6 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+/Sayim.Api/appsettings.json
+/Sayim.MAUI/MauiProgram.cs
+/Sayim.MAUI/Platforms/Android/Resources/xml/network_security_config.xml
